@@ -51,7 +51,7 @@ ChatBalloon::ChatBalloon() : ChatBalloon{0}
 {
 }
 
-void ChatBalloon::change_text(utf8_string&& text)
+void ChatBalloon::change_text(tiny_utf8::utf8_string&& text)
 {
     textlabel.change_text(std::move(text));
 

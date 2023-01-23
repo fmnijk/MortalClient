@@ -132,7 +132,7 @@ void UIStatsinfo::update_all_stats()
         update_ap();
     }
 
-    statlabels[NAME].change_text(utf8_string{stats.get_name()});
+    statlabels[NAME].change_text(tiny_utf8::utf8_string{stats.get_name()});
     statlabels[GUILD].change_text(u8"");
 
     statlabels[HP].change_text(

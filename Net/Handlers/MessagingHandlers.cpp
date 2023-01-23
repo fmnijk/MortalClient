@@ -136,7 +136,7 @@ void ServerMessageHandler::handle(InPacket& recv) const
 void WeekEventMessageHandler::handle(InPacket& recv) const
 {
     recv.read_byte(); // always 0xFF in solaxia and moople
-    utf8_string message = recv.read_string();
+    tiny_utf8::utf8_string message = recv.read_string();
 
     static constexpr const std::string_view MAPLETIP = u8"[MapleTip]";
     if (std::string_view{message.data()}
@@ -153,7 +153,7 @@ void ChatReceivedHandler::handle(InPacket& recv) const
 {
     std::int32_t charid = recv.read_int();
     recv.read_bool(); // 'gm'
-    utf8_string message = recv.read_string();
+    tiny_utf8::utf8_string message = recv.read_string();
     std::int8_t type = recv.read_byte();
 
     if (auto character = Stage::get().get_character(charid); character) {
@@ -161,7 +161,7 @@ void ChatReceivedHandler::handle(InPacket& recv) const
         // message.reserve(message.capacity() + char_name.length() + 2);
         message.insert(0, char_name);
         message.insert(char_name.length(), u8": ");
-        character->speak(utf8_string{message});
+        character->speak(tiny_utf8::utf8_string{message});
     }
 
     auto linetype = static_cast<UIChatbar::LineType>(type);

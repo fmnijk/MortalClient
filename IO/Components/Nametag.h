@@ -21,7 +21,7 @@
 #include "../../Graphics/Texture.h"
 #include "../../Template/BoolPair.h"
 #include "nlnx/node.hpp"
-#include "tinyutf8.h"
+#include <tinyutf8/tinyutf8.h>
 
 #include <vector>
 
@@ -33,7 +33,7 @@ public:
     Nametag(nl::node src,
             Text::Font font,
             Text::Color color,
-            utf8_string&& name);
+            tiny_utf8::utf8_string&& name);
 
     void draw(Point<std::int16_t> position) const;
     void set_selected(bool selected) noexcept;

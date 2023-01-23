@@ -103,7 +103,7 @@ UICharSelect::UICharSelect(std::vector<CharEntry> cs,
     for (const auto& entry : characters) {
         char_looks.emplace_back(entry.look);
         name_tags.emplace_back(
-            name_tag, Text::A13M, Text::WHITE, utf8_string{entry.stats.name});
+            name_tag, Text::A13M, Text::WHITE, tiny_utf8::utf8_string{entry.stats.name});
     }
 
     update_counts();
@@ -326,7 +326,7 @@ void UICharSelect::add_character(CharEntry character)
 {
     char_looks.emplace_back(character.look);
     name_tags.emplace_back(
-        name_tag, Text::A13M, Text::WHITE, utf8_string{character.stats.name});
+        name_tag, Text::A13M, Text::WHITE, tiny_utf8::utf8_string{character.stats.name});
 
     characters.emplace_back(std::move(character));
 

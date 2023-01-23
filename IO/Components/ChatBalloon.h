@@ -19,7 +19,7 @@
 
 #include "../../Graphics/Text.h"
 #include "MapleFrame.h"
-#include "tinyutf8.h"
+#include <tinyutf8/tinyutf8.h>
 
 namespace jrc
 {
@@ -32,7 +32,7 @@ public:
     void draw(Point<std::int16_t> position) const;
     void update() noexcept;
 
-    void change_text(utf8_string&& text);
+    void change_text(tiny_utf8::utf8_string&& text);
     void expire() noexcept;
 
 private:

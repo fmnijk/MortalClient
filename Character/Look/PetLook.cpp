@@ -24,7 +24,7 @@
 namespace jrc
 {
 PetLook::PetLook(std::int32_t iid,
-                 utf8_string&& nm,
+                 tiny_utf8::utf8_string&& nm,
                  std::int32_t uqid,
                  Point<std::int16_t> pos,
                  std::uint8_t st,
@@ -40,7 +40,7 @@ PetLook::PetLook(std::int32_t iid,
                  Text::CENTER,
                  Text::WHITE,
                  Text::NAMETAG,
-                 utf8_string{name}};
+                 tiny_utf8::utf8_string{name}};
 
     std::string str_id = std::to_string(iid);
 

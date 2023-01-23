@@ -24,7 +24,7 @@
 
 namespace jrc
 {
-UINotice::UINotice(utf8_string&& q)
+UINotice::UINotice(tiny_utf8::utf8_string&& q)
 {
     nl::node src = nl::nx::ui["Basic.img"]["Notice6"];
 
@@ -77,7 +77,7 @@ std::int16_t UINotice::box2offset() const
                  * (static_cast<std::int16_t>(1) + height / box.height());
 }
 
-UIYesNo::UIYesNo(utf8_string&& q, std::function<void(bool)> yh)
+UIYesNo::UIYesNo(tiny_utf8::utf8_string&& q, std::function<void(bool)> yh)
     : UINotice{std::move(q)}, yes_no_handler{yh}
 {
     std::int16_t below_text = UINotice::box2offset();
@@ -112,7 +112,7 @@ Button::State UIYesNo::button_pressed(std::uint16_t button_id)
     return Button::PRESSED;
 }
 
-UIEnterNumber::UIEnterNumber(utf8_string&& q,
+UIEnterNumber::UIEnterNumber(tiny_utf8::utf8_string&& q,
                              std::function<void(std::int32_t)> n_handler,
                              std::int32_t mi,
                              std::int32_t ma,
@@ -137,7 +137,7 @@ UIEnterNumber::UIEnterNumber(utf8_string&& q,
     num_field.set_state(Textfield::FOCUSED);
     num_field.change_text(std::to_string(de));
     num_field.set_enter_callback(
-        [this](const utf8_string& num_str) { handle_string(num_str); });
+        [this](const tiny_utf8::utf8_string& num_str) { handle_string(num_str); });
 }
 
 void UIEnterNumber::draw(float alpha) const
@@ -180,7 +180,7 @@ Button::State UIEnterNumber::button_pressed(std::uint16_t button_id)
     return Button::PRESSED;
 }
 
-void UIEnterNumber::handle_string(const utf8_string& num_str)
+void UIEnterNumber::handle_string(const tiny_utf8::utf8_string& num_str)
 {
     if (!num_str.empty()) {
         std::int32_t num = [&num_str] {

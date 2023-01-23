@@ -62,7 +62,7 @@ const PlayerState* get_state(Char::State state)
 }
 
 Player::Player(const CharEntry& entry)
-    : Char(entry.cid, entry.look, utf8_string{entry.stats.name}),
+    : Char(entry.cid, entry.look, tiny_utf8::utf8_string{entry.stats.name}),
       stats(entry.stats)
 {
     attacking = false;

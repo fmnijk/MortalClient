@@ -21,7 +21,7 @@
 #include "../../Graphics/Text.h"
 #include "../../Template/EnumMap.h"
 #include "../../Template/Point.h"
-#include "tinyutf8.h"
+#include <tinyutf8/tinyutf8.h>
 
 #include <cstdint>
 #include <map>
@@ -51,7 +51,7 @@ public:
     }
 
     PetLook(std::int32_t iid,
-            utf8_string&& name,
+            tiny_utf8::utf8_string&& name,
             std::int32_t uniqueid,
             Point<std::int16_t> pos,
             std::uint8_t stance,
@@ -70,7 +70,7 @@ public:
 
 private:
     std::int32_t item_id;
-    utf8_string name;
+    tiny_utf8::utf8_string name;
     std::int32_t unique_id;
     Stance stance;
     bool flip;

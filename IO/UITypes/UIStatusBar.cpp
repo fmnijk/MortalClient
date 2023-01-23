@@ -131,9 +131,9 @@ void UIStatusbar::update()
     hpbar.update(get_hp_percent());
     mpbar.update(get_mp_percent());
 
-    namelabel.change_text(utf8_string{stats.get_name()});
+    namelabel.change_text(tiny_utf8::utf8_string{stats.get_name()});
     const auto job_name = stats.get_job_name();
-    joblabel.change_text(utf8_string{job_name.data(), job_name.length()});
+    joblabel.change_text(tiny_utf8::utf8_string{job_name.data(), job_name.length()});
 
     for (auto iter : message_cooldowns) {
         iter.second -= Constants::TIMESTEP;
@@ -202,7 +202,7 @@ Cursor::State UIStatusbar::send_cursor(bool pressed,
     }
 }
 
-void UIStatusbar::send_chatline(utf8_string&& line, UIChatbar::LineType type)
+void UIStatusbar::send_chatline(tiny_utf8::utf8_string&& line, UIChatbar::LineType type)
 {
     chatbar.send_line(std::move(line), type);
 }

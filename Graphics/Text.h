@@ -17,7 +17,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #pragma once
 #include "DrawArgument.h"
-#include "tinyutf8.h"
+#include <tinyutf8/tinyutf8.h>
 
 #include <cstdint>
 #include <map>
@@ -114,20 +114,20 @@ public:
          Alignment alignment,
          Color color,
          Background background,
-         utf8_string&& text = u8"",
+         tiny_utf8::utf8_string&& text = u8"",
          std::uint16_t maxwidth = 0,
          bool formatted = true) noexcept;
     Text(Font font,
          Alignment alignment,
          Color color,
-         utf8_string&& text = u8"",
+         tiny_utf8::utf8_string&& text = u8"",
          std::uint16_t maxwidth = 0,
          bool formatted = true) noexcept;
     Text() noexcept;
 
     void draw(const DrawArgument& args) const;
 
-    void change_text(utf8_string&& text);
+    void change_text(tiny_utf8::utf8_string&& text);
     void change_color(Color color);
     void set_background(Background background);
 
@@ -138,7 +138,7 @@ public:
     std::uint16_t advance(std::size_t pos) const;
     Point<std::int16_t> dimensions() const;
     Point<std::int16_t> endoffset() const;
-    const utf8_string& get_text() const noexcept;
+    const tiny_utf8::utf8_string& get_text() const noexcept;
 
 private:
     void reset_layout() noexcept;
@@ -150,6 +150,6 @@ private:
     Layout layout;
     std::uint16_t max_width;
     bool formatted;
-    utf8_string text;
+    tiny_utf8::utf8_string text;
 };
 } // namespace jrc

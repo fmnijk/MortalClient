@@ -27,7 +27,7 @@
 #include "../Messages.h"
 #include "../UIElement.h"
 #include "UIChatBar.h"
-#include "tinyutf8.h"
+#include <tinyutf8/tinyutf8.h>
 
 namespace jrc
 {
@@ -48,7 +48,7 @@ public:
     Cursor::State send_cursor(bool pressed,
                               Point<std::int16_t> cursorpos) override;
 
-    void send_chatline(utf8_string&& line, UIChatbar::LineType type);
+    void send_chatline(tiny_utf8::utf8_string&& line, UIChatbar::LineType type);
     void display_message(Messages::Type line, UIChatbar::LineType type);
 
 protected:

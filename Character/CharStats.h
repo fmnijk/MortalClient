@@ -22,7 +22,7 @@
 #include "EquipStat.h"
 #include "Inventory/Weapon.h"
 #include "Job.h"
-#include "tinyutf8.h"
+#include <tinyutf8/tinyutf8.h>
 
 #include <string_view>
 
@@ -62,7 +62,7 @@ public:
     std::int32_t get_map_id() const;
     std::uint8_t get_portal() const;
     std::int64_t get_exp() const;
-    const utf8_string& get_name() const;
+    const tiny_utf8::utf8_string& get_name() const;
     std::string_view get_job_name() const;
     Weapon::Type get_weapon_type() const;
     float get_mastery() const;
@@ -88,7 +88,7 @@ private:
     std::int32_t get_secondary_stat() const;
     float get_multiplier() const;
 
-    utf8_string name;
+    tiny_utf8::utf8_string name;
     std::vector<std::int64_t> pet_ids;
     Job job;
     std::int64_t exp;

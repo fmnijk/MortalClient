@@ -52,7 +52,7 @@ public:
     Cursor::State send_cursor(bool pressed,
                               Point<std::int16_t> cursorpos) override;
 
-    void send_line(utf8_string&& line, LineType type);
+    void send_line(tiny_utf8::utf8_string&& line, LineType type);
 
 protected:
     Button::State button_pressed(std::uint16_t buttonid) override;
@@ -84,7 +84,7 @@ private:
     bool chatopen;
     ChatTarget chattarget;
 
-    std::vector<utf8_string> last_entered;
+    std::vector<tiny_utf8::utf8_string> last_entered;
     std::size_t lastpos;
 
     std::unordered_map<std::int16_t, Text> row_texts;

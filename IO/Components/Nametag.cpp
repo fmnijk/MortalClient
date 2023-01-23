@@ -19,7 +19,7 @@
 
 namespace jrc
 {
-Nametag::Nametag(nl::node src, Text::Font f, Text::Color c, utf8_string&& n)
+Nametag::Nametag(nl::node src, Text::Font f, Text::Color c, tiny_utf8::utf8_string&& n)
 {
     name = {f, Text::CENTER, c};
     name.change_text(std::move(n));

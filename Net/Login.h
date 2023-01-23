@@ -18,7 +18,7 @@
 #pragma once
 #include "../Character/MapleStat.h"
 #include "../Template/EnumMap.h"
-#include "tinyutf8.h"
+#include <tinyutf8/tinyutf8.h>
 
 #include <cstdint>
 #include <string>
@@ -46,7 +46,7 @@ struct World {
 };
 
 struct StatsEntry {
-    utf8_string name;
+    tiny_utf8::utf8_string name;
     std::vector<std::int64_t> pet_ids;
     EnumMap<Maplestat::Id, std::uint16_t> stats;
     std::int64_t exp;

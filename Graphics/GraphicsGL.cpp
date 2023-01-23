@@ -20,7 +20,7 @@
 #include "../Configuration.h"
 #include "../Console.h"
 #include "../IO/Window.h"
-#include "tinyutf8.h"
+#include <tinyutf8/tinyutf8.h>
 
 #include <algorithm>
 
@@ -481,7 +481,7 @@ void GraphicsGL::draw(const nl::bitmap& bmp,
         rect.l(), rect.r(), rect.t(), rect.b(), get_offset(bmp), color, angle);
 }
 
-Text::Layout GraphicsGL::create_layout(const utf8_string& text,
+Text::Layout GraphicsGL::create_layout(const tiny_utf8::utf8_string& text,
                                        Text::Font id,
                                        Text::Alignment alignment,
                                        std::int16_t max_width,
@@ -494,9 +494,9 @@ Text::Layout GraphicsGL::create_layout(const utf8_string& text,
 
     LayoutBuilder builder{fonts[id], alignment, max_width, formatted};
 
-    utf8_string::size_type first = 0;
-    utf8_string::size_type offset = 0;
-    utf8_string::size_type code_pt_ix = 0;
+    tiny_utf8::utf8_string::size_type first = 0;
+    tiny_utf8::utf8_string::size_type offset = 0;
+    tiny_utf8::utf8_string::size_type code_pt_ix = 0;
     for (const auto code_pt : text) {
         if ((code_pt == U' ' || code_pt == U'\\' || code_pt == U'#')
             && code_pt_ix != 0) { // TODO: i18n
@@ -529,11 +529,11 @@ GraphicsGL::LayoutBuilder::LayoutBuilder(Font& f,
     }
 }
 
-utf8_string::size_type
-GraphicsGL::LayoutBuilder::add(const utf8_string& text,
-                               utf8_string::size_type prev,
-                               utf8_string::size_type first,
-                               utf8_string::size_type last)
+tiny_utf8::utf8_string::size_type
+GraphicsGL::LayoutBuilder::add(const tiny_utf8::utf8_string& text,
+                               tiny_utf8::utf8_string::size_type prev,
+                               tiny_utf8::utf8_string::size_type first,
+                               tiny_utf8::utf8_string::size_type last)
 {
     if (first == last) {
         return prev;
@@ -541,7 +541,7 @@ GraphicsGL::LayoutBuilder::add(const utf8_string& text,
 
     Text::Font last_font = font_id;
     Text::Color last_color = color;
-    utf8_string::size_type skip = 0;
+    tiny_utf8::utf8_string::size_type skip = 0;
     bool line_break = false;
     if (formatted) {
         switch (text[first]) {
@@ -584,7 +584,7 @@ GraphicsGL::LayoutBuilder::add(const utf8_string& text,
 
     std::int16_t word_width = 0;
     if (!line_break) {
-        for (utf8_string::size_type i = first; i < last; ++i) {
+        for (tiny_utf8::utf8_string::size_type i = first; i < last; ++i) {
             const auto font_char = font.get_or_insert_char(text[i]);
             if (!font_char) {
                 continue;
@@ -615,7 +615,7 @@ GraphicsGL::LayoutBuilder::add(const utf8_string& text,
         ay += font.line_space();
     }
 
-    for (utf8_string::size_type pos = first; pos < last; ++pos) {
+    for (tiny_utf8::utf8_string::size_type pos = first; pos < last; ++pos) {
         const auto c = text[pos];
         const auto font_char = font.get_or_insert_char(c);
         if (!font_char) {
@@ -684,7 +684,7 @@ void GraphicsGL::LayoutBuilder::add_line()
 }
 
 void GraphicsGL::draw_text(const DrawArgument& args,
-                           const utf8_string& text,
+                           const tiny_utf8::utf8_string& text,
                            const Text::Layout& layout,
                            Text::Font id,
                            Text::Color colorid,

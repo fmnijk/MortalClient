@@ -58,14 +58,14 @@ public:
               float angle);
 
     //! Create a layout for the text with the parameters specified.
-    Text::Layout create_layout(const utf8_string& text,
+    Text::Layout create_layout(const tiny_utf8::utf8_string& text,
                                Text::Font font,
                                Text::Alignment alignment,
                                std::int16_t max_width,
                                bool formatted);
     //! Draw a text with the given parameters.
     void draw_text(const DrawArgument& args,
-                   const utf8_string& text,
+                   const tiny_utf8::utf8_string& text,
                    const Text::Layout& layout,
                    Text::Font font,
                    Text::Color color,
@@ -321,10 +321,10 @@ private:
                       std::int16_t maxwidth,
                       bool formatted) noexcept;
 
-        utf8_string::size_type add(const utf8_string& text,
-                                   utf8_string::size_type prev,
-                                   utf8_string::size_type first,
-                                   utf8_string::size_type last);
+        tiny_utf8::utf8_string::size_type add(const tiny_utf8::utf8_string& text,
+                                   tiny_utf8::utf8_string::size_type prev,
+                                   tiny_utf8::utf8_string::size_type first,
+                                   tiny_utf8::utf8_string::size_type last);
         Text::Layout finish(std::size_t first, std::size_t last);
 
     private:

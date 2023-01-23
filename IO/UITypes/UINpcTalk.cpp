@@ -86,7 +86,7 @@ void UINpcTalk::change_text(std::int32_t npc_id,
         name = {Text::A11M,
                 Text::CENTER,
                 Text::WHITE,
-                utf8_string{
+                tiny_utf8::utf8_string{
                     nl::nx::string["Npc.img"][str_id]["name"].get_string()}};
 
         str_id.insert(0, 7 - str_id.length(), '0');

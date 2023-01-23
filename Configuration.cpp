@@ -427,7 +427,7 @@ void Configuration::load() noexcept(false)
         character_tables) {
         for (const auto& character_table : *character_tables) {
             Character character;
-            utf8_string name;
+            tiny_utf8::utf8_string name;
             if (auto name_ = character_table->get_as<std::string>("name");
                 name_) {
                 name = *name_;
@@ -765,7 +765,7 @@ simple_minimap = $
         if constexpr (std::is_same_v<x_type, std::string>) {
             // TODO: Escape special characters.
             settings << std::quoted(x);
-        } else if constexpr (std::is_same_v<x_type, utf8_string>) {
+        } else if constexpr (std::is_same_v<x_type, tiny_utf8::utf8_string>) {
             // TODO: Escape special characters.
             settings << std::quoted(x.cpp_str());
         } else if constexpr (std::is_same_v<x_type, bool>) {
@@ -1018,7 +1018,7 @@ void Configuration::set_position_of(PositionOf po,
 }
 
 Configuration::Character&
-Configuration::get_character(const utf8_string& name) noexcept
+Configuration::get_character(const tiny_utf8::utf8_string& name) noexcept
 {
     auto [iter, inserted] = characters.try_emplace(name);
     return iter->second;

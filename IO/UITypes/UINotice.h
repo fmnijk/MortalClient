@@ -19,7 +19,7 @@
 #include "../../Graphics/Texture.h"
 #include "../Components/Textfield.h"
 #include "../UIElement.h"
-#include "tinyutf8.h"
+#include <tinyutf8/tinyutf8.h>
 
 #include <functional>
 
@@ -33,7 +33,7 @@ public:
     static constexpr const bool TOGGLED = false;
 
 protected:
-    UINotice(utf8_string&& question);
+    UINotice(tiny_utf8::utf8_string&& question);
 
     void draw_notice(bool text_field) const;
 
@@ -54,7 +54,7 @@ private:
 class UIYesNo : public UINotice
 {
 public:
-    UIYesNo(utf8_string&& question,
+    UIYesNo(tiny_utf8::utf8_string&& question,
             std::function<void(bool yes)> yes_no_handler);
 
     void draw(float alpha) const override;
@@ -71,7 +71,7 @@ private:
 class UIEnterNumber : public UINotice
 {
 public:
-    UIEnterNumber(utf8_string&& question,
+    UIEnterNumber(tiny_utf8::utf8_string&& question,
                   std::function<void(std::int32_t number)> n_handler,
                   std::int32_t min,
                   std::int32_t max,
@@ -87,7 +87,7 @@ protected:
     Button::State button_pressed(std::uint16_t button_id) override;
 
 private:
-    void handle_string(const utf8_string& num_str);
+    void handle_string(const tiny_utf8::utf8_string& num_str);
 
     enum Buttons : std::int16_t { OK, CANCEL };
 

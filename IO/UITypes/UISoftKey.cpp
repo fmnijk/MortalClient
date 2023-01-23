@@ -71,7 +71,7 @@ void UISoftkey::draw(float alpha) const
 
 Button::State UISoftkey::button_pressed(std::uint16_t id)
 {
-    utf8_string entered{entry.get_text()};
+    tiny_utf8::utf8_string entered{entry.get_text()};
 
     switch (id) {
     case BT_0:

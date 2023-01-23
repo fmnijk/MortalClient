@@ -235,7 +235,7 @@ Button::State UICharCreation::button_pressed(std::uint16_t id)
     switch (id) {
     case BT_CHARC_OK:
         if (named) {
-            utf8_string cname = name_char.get_text();
+            tiny_utf8::utf8_string cname = name_char.get_text();
             std::uint16_t cjob = 1;
             std::int32_t cface = faces[female][face];
             std::int32_t chair = hairs[female][hair];
@@ -259,7 +259,7 @@ Button::State UICharCreation::button_pressed(std::uint16_t id)
                 .dispatch();
             return Button::PRESSED;
         } else {
-            utf8_string name = name_char.get_text();
+            tiny_utf8::utf8_string name = name_char.get_text();
             if (name.size() >= 4) {
                 name_char.set_state(Textfield::NORMAL);
 

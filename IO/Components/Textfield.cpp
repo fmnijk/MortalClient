@@ -90,7 +90,7 @@ void Textfield::set_state(State st) noexcept
 }
 
 void Textfield::set_enter_callback(
-    std::function<void(const utf8_string&)> on_ret) noexcept
+    std::function<void(const tiny_utf8::utf8_string&)> on_ret) noexcept
 {
     on_return = on_ret;
 }
@@ -165,7 +165,7 @@ void Textfield::send_key(KeyType::Id type,
     }
 }
 
-void Textfield::add_string(const utf8_string& str) noexcept
+void Textfield::add_string(const tiny_utf8::utf8_string& str) noexcept
 {
     for (char32_t c : str) {
         if (below_limit()) {
@@ -179,9 +179,9 @@ void Textfield::add_string(const utf8_string& str) noexcept
 void Textfield::text_modified() noexcept
 {
     if (crypt != '\0') {
-        text_label.change_text(utf8_string(text.length(), crypt));
+        text_label.change_text(tiny_utf8::utf8_string(text.length(), crypt));
     } else {
-        text_label.change_text(utf8_string{text});
+        text_label.change_text(tiny_utf8::utf8_string{text});
     }
 }
 
@@ -220,7 +220,7 @@ Cursor::State Textfield::send_cursor(Point<std::int16_t> cursorpos,
     }
 }
 
-void Textfield::change_text(utf8_string&& t) noexcept
+void Textfield::change_text(tiny_utf8::utf8_string&& t) noexcept
 {
     text = std::move(t);
     text_modified();
@@ -242,7 +242,7 @@ bool Textfield::below_limit() const noexcept
     }
 }
 
-const utf8_string& Textfield::get_text() const noexcept
+const tiny_utf8::utf8_string& Textfield::get_text() const noexcept
 {
     return text;
 }

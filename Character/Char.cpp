@@ -28,7 +28,7 @@
 
 namespace jrc
 {
-Char::Char(std::int32_t o, const CharLook& lk, utf8_string&& name) noexcept
+Char::Char(std::int32_t o, const CharLook& lk, tiny_utf8::utf8_string&& name) noexcept
     : MapObject{o},
       look{lk},
       name_label{Text::A13M,
@@ -188,7 +188,7 @@ void Char::show_damage(std::int32_t damage)
     invincible.set_for(2'000);
 }
 
-void Char::speak(utf8_string&& line)
+void Char::speak(tiny_utf8::utf8_string&& line)
 {
     chat_balloon.change_text(std::move(line));
 }
@@ -290,7 +290,7 @@ void Char::set_state(State st)
 
 void Char::add_pet(std::uint8_t index,
                    std::int32_t iid,
-                   utf8_string&& name,
+                   tiny_utf8::utf8_string&& name,
                    std::int32_t uniqueid,
                    Point<std::int16_t> pos,
                    std::uint8_t stance,
@@ -350,7 +350,7 @@ bool Char::get_flip() const
     return flip;
 }
 
-const utf8_string& Char::get_name() const
+const tiny_utf8::utf8_string& Char::get_name() const
 {
     return name_label.get_text();
 }

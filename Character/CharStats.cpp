@@ -261,7 +261,7 @@ std::int64_t CharStats::get_exp() const
     return exp;
 }
 
-const utf8_string& CharStats::get_name() const
+const tiny_utf8::utf8_string& CharStats::get_name() const
 {
     return name;
 }

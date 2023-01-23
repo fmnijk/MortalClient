@@ -26,7 +26,7 @@ Text::Text(Font f,
            Alignment a,
            Color c,
            Background b,
-           utf8_string&& t,
+           tiny_utf8::utf8_string&& t,
            std::uint16_t mw,
            bool fm) noexcept
     : font{f},
@@ -42,7 +42,7 @@ Text::Text(Font f,
 Text::Text(Font f,
            Alignment a,
            Color c,
-           utf8_string&& t,
+           tiny_utf8::utf8_string&& t,
            std::uint16_t mw,
            bool fm) noexcept
     : Text{f, a, c, NONE, std::move(t), mw, fm}
@@ -63,7 +63,7 @@ void Text::reset_layout() noexcept
         text, font, alignment, max_width, formatted);
 }
 
-void Text::change_text(utf8_string&& t)
+void Text::change_text(tiny_utf8::utf8_string&& t)
 {
     if (text == t) {
         return;
@@ -130,7 +130,7 @@ Point<std::int16_t> Text::endoffset() const
     return layout.get_endoffset();
 }
 
-const utf8_string& Text::get_text() const noexcept
+const tiny_utf8::utf8_string& Text::get_text() const noexcept
 {
     return text;
 }

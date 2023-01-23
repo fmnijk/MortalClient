@@ -105,14 +105,14 @@ void UIGameSettings::load_settings() noexcept
 {
     checks_state
         = Configuration::get()
-              .get_character(utf8_string{Stage::get().get_player().get_name()})
+              .get_character(tiny_utf8::utf8_string{Stage::get().get_player().get_name()})
               .game_settings.flags;
 }
 
 void UIGameSettings::commit() const noexcept
 {
     Configuration::get()
-        .get_character(utf8_string{Stage::get().get_player().get_name()})
+        .get_character(tiny_utf8::utf8_string{Stage::get().get_player().get_name()})
         .game_settings.flags
         = checks_state;
 }

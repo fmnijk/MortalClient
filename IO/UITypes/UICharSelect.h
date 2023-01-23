@@ -117,13 +117,13 @@ private:
             inner.draw(parentpos);
         }
 
-        void change_text(const utf8_string& text)
+        void change_text(const tiny_utf8::utf8_string& text)
         {
-            inner.change_text(utf8_string{text});
-            l.change_text(utf8_string{text});
-            r.change_text(utf8_string{text});
-            t.change_text(utf8_string{text});
-            b.change_text(utf8_string{text});
+            inner.change_text(tiny_utf8::utf8_string{text});
+            l.change_text(tiny_utf8::utf8_string{text});
+            r.change_text(tiny_utf8::utf8_string{text});
+            t.change_text(tiny_utf8::utf8_string{text});
+            b.change_text(tiny_utf8::utf8_string{text});
         }
     };
     OutlinedText name_label;
