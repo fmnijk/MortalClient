@@ -18,7 +18,7 @@
 #pragma once
 #include "../Template/Point.h"
 #include "PacketError.h"
-#include "tinyutf8.hpp"
+#include "tinyutf8.h"
 
 #include <cstdint>
 #include <optional>

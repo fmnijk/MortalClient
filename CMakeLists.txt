@@ -23,11 +23,11 @@ endif()
 
 # Set compiler flags
 if(UNIX AND NOT APPLE)
-    SET(REQUIRED_FLAGS "-std=c++17 -fcolor-diagnostics -pipe -DASIO_STANDALONE -DGLEW_NO_GLU -DBOOST_BIMAP_DISABLE_SERIALIZATION -lglut -lGL -lSDL2 -lSDL2_mixer -ldl -lXinerama -lXext -lXrandr -lXi -lXcursor -lX11 -lXxf86vm -pthread -Wall -Wextra")
+    SET(REQUIRED_FLAGS "-std=c++17 -fcolor-diagnostics -pipe -DASIO_STANDALONE -DGLEW_NO_GLU -DBOOST_BIMAP_DISABLE_SERIALIZATION -lglut -lGL -lSDL2 -lSDL2_mixer -ldl -lXinerama -lXext -lXrandr -lXi -lXcursor -lX11 -lXxf86vm -pthread -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-align -Wstrict-prototypes -Werror-implicit-function-declaration -Wformat=2 -Wnull-dereference -Wstrict-overflow=5 -Wno-unused-command-line-argument -Wno-unused-private-field -Wno-narrowing")
 elseif(APPLE)
-    SET(REQUIRED_FLAGS "-std=c++17 -fcolor-diagnostics -nostdinc++ -I/usr/local/Cellar/llvm/6.0.0/include/c++/v1 -L/usr/local/Cellar/llvm/6.0.0/lib -Wl,-rpath,/usr/local/Cellar/llvm/6.0.0/lib -pipe -DASIO_STANDALONE -DGLEW_NO_GLU -DBOOST_BIMAP_DISABLE_SERIALIZATION -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -lglut -lSDL2 -lSDL2_mixer -ldl -pthread -Wall -Wextra")
+    SET(REQUIRED_FLAGS "-std=c++17 -fcolor-diagnostics -nostdinc++ -I/usr/local/Cellar/llvm/6.0.0/include/c++/v1 -L/usr/local/Cellar/llvm/6.0.0/lib -Wl,-rpath,/usr/local/Cellar/llvm/6.0.0/lib -pipe -DASIO_STANDALONE -DGLEW_NO_GLU -DBOOST_BIMAP_DISABLE_SERIALIZATION -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -lglut -lSDL2 -lSDL2_mixer -ldl -pthread -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-align -Wstrict-prototypes -Werror-implicit-function-declaration -Wformat=2 -Wnull-dereference -Wstrict-overflow=5 -Wno-unused-private-field -Wno-unused-command-line-argument -Wno-narrowing")
 elseif(WIN32)
-    SET(REQUIRED_FLAGS "/std:c++17 /GX /D ASIO_STANDALONE /D GLEW_NO_GLU /D BOOST_BIMAP_DISABLE_SERIALIZATION /W4")
+    SET(REQUIRED_FLAGS "/std:c++17 /GX /D ASIO_STANDALONE /D GLEW_NO_GLU /D BOOST_BIMAP_DISABLE_SERIALIZATION /W4 -Wshadow -Wpointer-arith -Wcast-align -Wstrict-prototypes -Werror-implicit-function-declaration -Wformat=2 -Wnull-dereference -Wstrict-overflow=5 -Wno-unused-private-field -Wno-unused-command-line-argument -Wno-narrowing")
 else()
     message(FATAL_ERROR "Unrecognized platform")
 endif()
@@ -176,8 +176,7 @@ SET(SOURCE_FILES ${Root_CPP}
                  "../boost/boost/container/flat_set.hpp"
                  "../boost/boost/container/static_vector.hpp"
                  "../cpptoml/include/cpptoml.h"
-                 "../pcg-cpp/include/pcg_random.hpp"
-                 "../tinyutf8/tinyutf8.cpp")
+                 "../pcg-cpp/include/pcg_random.hpp")
 
 # Adding file globs created above as libraries
 add_library(Audio         ${Audio_CPP})
@@ -204,8 +203,6 @@ add_library(Helpers       ${Helpers_CPP})
 add_library(Configuration "Configuration.cpp")
 
 add_library(nlnx          ${nlnx_CPP})
-
-add_library(tinyutf8      "../tinyutf8/tinyutf8.cpp")
 
 # Target executable
 add_executable(JourneyClient ${SOURCE_FILES})
@@ -292,7 +289,8 @@ else()
 endif()
 include_directories("../boost")
 include_directories("/usr/include")
-include_directories("/usr/include/SDL2")
+include_directories("../SDL/include")
+include_directories("../SDL_mixer/include")
 include_directories("../cpptoml/include")
 include_directories("../pcg-cpp/include")
-include_directories("../tinyutf8")
+include_directories("../tinyutf8/include")

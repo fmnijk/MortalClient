@@ -22,7 +22,7 @@
 #include "EquipStat.h"
 #include "Inventory/Weapon.h"
 #include "Job.h"
-#include "tinyutf8.hpp"
+#include "tinyutf8.h"
 
 #include <string_view>
 

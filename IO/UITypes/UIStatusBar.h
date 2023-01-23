@@ -27,7 +27,7 @@
 #include "../Messages.h"
 #include "../UIElement.h"
 #include "UIChatBar.h"
-#include "tinyutf8.hpp"
+#include "tinyutf8.h"
 
 namespace jrc
 {
