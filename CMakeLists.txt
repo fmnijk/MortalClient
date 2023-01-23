@@ -245,8 +245,6 @@ target_link_libraries(JourneyClient Configuration)
 
 target_link_libraries(JourneyClient nlnx)
 
-target_link_libraries(JourneyClient tinyutf8)
-
 # Link in shared object files
 if(UNIX AND NOT APPLE)
     target_link_libraries(JourneyClient "${CMAKE_CURRENT_SOURCE_DIR}/../freetype/objs/.libs/libfreetype.so")
