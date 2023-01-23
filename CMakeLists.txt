@@ -268,7 +268,7 @@ elseif(WIN32)
     target_link_libraries(JourneyClient "${CMAKE_CURRENT_SOURCE_DIR}/../freetype/release static/vs2015-2022/win64/freetype.lib")
     target_link_libraries(JourneyClient "${CMAKE_CURRENT_SOURCE_DIR}/../glew/lib/Release/x64/glew32.lib")
     target_link_libraries(JourneyClient "${CMAKE_CURRENT_SOURCE_DIR}/../glfw/lib-vc2015/glfw3.lib")
-    target_link_libraries(nlnx          "${CMAKE_CURRENT_SOURCE_DIR}/../lz4/static/liblz4.lib")
+    target_link_libraries(nlnx          "${CMAKE_CURRENT_SOURCE_DIR}/../lz4/static/lz4.lib")
     target_link_libraries(JourneyClient "${CMAKE_CURRENT_SOURCE_DIR}/../SDL2/lib/x64/SDL2.lib")
     target_link_libraries(JourneyClient "${CMAKE_CURRENT_SOURCE_DIR}/../SDL2_mixer/lib/x64/SDL2_mixer.lib")
 else()
@@ -300,3 +300,18 @@ include_directories("/usr/include")
 include_directories("../cpptoml/include")
 include_directories("../pcg-cpp/include")
 include_directories("../tinyutf8/include")
+
+# ignore conflict default libraries
+if(WIN32)
+    SET(VS_MULTITHREADED_DEBUG_DLL_IGNORE_LIBRARY_FLAGS
+        "/NODEFAULTLIB:libcmt.lib
+        /NODEFAULTLIB:msvcrt.lib"
+    )
+endif()
+
+# set subsystem when build in win32
+if(WIN32)
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        LINK_FLAGS /SUBSYSTEM:CONSOLE
+    )
+endif()
