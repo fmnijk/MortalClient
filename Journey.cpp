@@ -155,7 +155,16 @@ void start()
 }
 } // namespace jrc
 
+// Entry point have many types:
+// main Main wmain wMain WinMain wWinMain
+// NOT WIN32
 int main()
+{
+    jrc::start();
+    return 0;
+}
+// WIN32
+int wmain()
 {
     jrc::start();
     return 0;

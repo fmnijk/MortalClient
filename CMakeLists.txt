@@ -205,10 +205,13 @@ add_library(Configuration "Configuration.cpp")
 add_library(nlnx          ${nlnx_CPP})
 
 # Target executable
-if(NOT WIN32)
-    add_executable(JourneyClient ${SOURCE_FILES})
-else()
-    add_executable(JourneyClient WIN32 ${SOURCE_FILES})
+add_executable(JourneyClient ${SOURCE_FILES})
+
+# Ignore conflict libraries
+if(WIN32)
+    set_target_properties(JourneyClient PROPERTIES
+        LINK_FLAGS "/SUBSYSTEM:CONSOLE /NODEFAULTLIB:libcmt.lib /NODEFAULTLIB:msvcrt.lib"
+    )
 endif()
 
 # Linking between libraries
@@ -300,18 +303,3 @@ include_directories("/usr/include")
 include_directories("../cpptoml/include")
 include_directories("../pcg-cpp/include")
 include_directories("../tinyutf8/include")
-
-# ignore conflict default libraries
-if(WIN32)
-    SET(VS_MULTITHREADED_DEBUG_DLL_IGNORE_LIBRARY_FLAGS
-        "/NODEFAULTLIB:libcmt.lib
-        /NODEFAULTLIB:msvcrt.lib"
-    )
-endif()
-
-# set subsystem when build in win32
-if(WIN32)
-    set_target_properties(${PROJECT_NAME} PROPERTIES
-        LINK_FLAGS /SUBSYSTEM:CONSOLE
-    )
-endif()
