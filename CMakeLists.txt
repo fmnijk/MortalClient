@@ -261,7 +261,7 @@ elseif(WIN32)
     SET(CMAKE_REQUIRED_LIBRARIES ${GLUT_LIBRARY} ${GL_LIBRARY})
     target_link_libraries(JourneyClient ${OPENGL_LIBRARIES})
 
-    target_link_libraries(JourneyClient "${CMAKE_CURRENT_SOURCE_DIR}/../freetype/win64/freetype.lib")
+    target_link_libraries(JourneyClient "${CMAKE_CURRENT_SOURCE_DIR}/../freetype/release static/vs2015-2022/win64/freetype.lib")
     target_link_libraries(JourneyClient "${CMAKE_CURRENT_SOURCE_DIR}/../glew/lib/Release/x64/glew32.lib")
     target_link_libraries(JourneyClient "${CMAKE_CURRENT_SOURCE_DIR}/../glfw/lib-vc2015/glfw3.lib")
     target_link_libraries(nlnx          "${CMAKE_CURRENT_SOURCE_DIR}/../lz4/dll/liblz4.lib")
