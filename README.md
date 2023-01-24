@@ -411,7 +411,8 @@ cd build
 
 Use the following two commands if `CMAKE_BUILD_TYPE` is to be `Debug` (you may
 wish to add an additional `/mN` flag, with `N` being the number of CPU cores
-you wish to utilize for compilation):
+you wish to utilize for compilation)  
+Since you may need to build many times for debug purpose, I add a command at first to delete all the files generated in previous build:
 
 ```bat
 del * /S /Q > nul
