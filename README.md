@@ -298,76 +298,115 @@ $ install_name_tool -change /usr/local/lib/liblz4.1.dylib ./liblz4.1.9.2.dylib J
 * [.NET Framework 4](https://www.microsoft.com/en-us/download/details.aspx?id=17718) (hopefully already installed, but just in case)
 * [Visual C++ Redistributable for Visual Studio 2017](https://go.microsoft.com/fwlink/?LinkId=746572) (probably already installed, but again, just in case)
 * [clang for windows](https://releases.llvm.org/download.html) (version 8+; download and install **Pre-Built Binaries:** -> Clang for Windows (64-bit))
+* [llvm-utils](https://github.com/zufuliu/llvm-utils/releases) (download and install LLVM_VS2017.zip)
 * [cmake](https://cmake.org/download/) (latest version, 3.11.X as of this writing)
-* [git](https://git-scm.com/)
+* [git](https://git-scm.com/download/win)
 * [7-Zip](https://www.7-zip.org/)
 
 #### Instructions
 
+In the below instructions, you can replace the link with the latest version of the dependencies to download them. But if any of them has a major change, you have to edit this project to support it. Most of the time only need to change the `lib` and `include` paths of it in `CMakeLists.txt`. Sometimes need to change the whole project, everywhere the project including or calling it. Thanks to multiline editing and multifile editing in mordern editor, it won't take much times. May happen when try to support newer version of `tinyutf8`.
+
 ```bat
-$ git clone https://github.com/HypatiaOfAlexandria/MortalClient.git
-$ git clone https://github.com/HypatiaOfAlexandria/NoLifeNx.git nlnx
+git clone https://github.com/fmnijk/MortalClient.git
+git clone https://github.com/HypatiaOfAlexandria/NoLifeNx.git nlnx
+git clone https://github.com/skystrife/cpptoml.git
+git clone https://github.com/imneme/pcg-cpp.git
+git clone https://github.com/DuffsDevice/tinyutf8.git --branch v4.4.3
 
-$ git clone https://github.com/ubawurinna/freetype-windows-binaries.git freetype
+curl -LJO https://github.com/libsdl-org/SDL/releases/download/release-2.26.2/SDL2-devel-2.26.2-VC.zip
+7z x SDL2*.zip
+del SDL2*.zip
+move SDL2* SDL2
 
-$ git clone https://github.com/skystrife/cpptoml.git
+curl -LJO https://github.com/libsdl-org/SDL_mixer/releases/download/release-2.6.2/SDL2_mixer-devel-2.6.2-VC.zip
+7z x SDL2_mixer*.zip
+del SDL2_mixer*.zip
+move SDL2_mixer* SDL2_mixer
 
-$ git clone https://github.com/imneme/pcg-cpp.git
+curl -LJO https://nchc.dl.sourceforge.net/project/asio/asio/1.24.0%20%28Stable%29/asio-1.24.0.zip
+7z x asio*.zip
+del asio*.zip
+move asio* asio
 
-$ git clone https://github.com/DuffsDevice/tinyutf8.git
+curl -LJO https://github.com/glfw/glfw/releases/download/3.3.8/glfw-3.3.8.bin.WIN64.zip
+7z x glfw*.zip
+del glfw*.zip
+move glfw* glfw
+
+curl -LJO https://nchc.dl.sourceforge.net/project/glew/glew/2.1.0/glew-2.1.0-win32.zip
+7z x glew*.zip
+del glew*.zip
+move glew* glew
+
+curl -LJO https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_1_81_0.zip
+7z x boost*.zip
+del boost*.zip
+move boost* boost
 ```
 
-Navigate to
-[https://sourceforge.net/projects/asio/files/latest/download](https://sourceforge.net/projects/asio/files/latest/download)
-and download `asio-X.Y.Z.zip`, whatever the latest version is
-(`asio-1.14.0.zip` as of this writing).
+There are two dependencies we need to build them ourselves. `freetype` and `lz4`. The reason is showing below.
+`freetype`: No `.pdb` file in official release.
+`lz4`: Official release is builded by `MinGW` and it's not compatilbe to `MSVC`.
+```
+curl -LJO https://nchc.dl.sourceforge.net/project/freetype/freetype2/2.12.1/ft2121.zip
+7z x ft2121.zip
+del ft2121.zip
+move freetype* freetype_src
+cd freetype_src
+cmake -B build -D BUILD_SHARED_LIBS=true -D CMAKE_BUILD_TYPE=Debug
+cmake --build build
+cd ..
+md freetype\demos\win64 freetype\include "freetype\release dll\win64" "freetype\release static\vs2015-2022\win64"
+move freetype_src\ChangeLog freetype\ChangeLog.txt
+move freetype_src\docs\FTL.TXT freetype
+move freetype_src\docs\GPLv2.TXT freetype
+move freetype_src\LICENSE.TXT freetype
+move freetype_src\README freetype\README.md
+move freetype_src\include "freetype\include"
+copy freetype_src\build\Debug\freetyped.dll "freetype\demos\win64"
+move freetype_src\build\Debug\freetyped.dll "freetype\release dll\win64"
+copy freetype_src\build\Debug\freetyped.lib "freetype\release dll\win64"
+move freetype_src\build\Debug\freetyped.exp "freetype\release static\vs2015-2022\win64"
+move freetype_src\build\Debug\freetyped.lib "freetype\release static\vs2015-2022\win64"
+move freetype_src\build\Debug\freetyped.pdb "freetype\release static\vs2015-2022\win64"
+rmdir /Q /S freetype_src
 
-Use 7-Zip to extract the contents of the asio ZIP file to a directory called
-`asio`.
-
-Navigate to
-[http://www.glfw.org/download.html](http://www.glfw.org/download.html) and
-download the 64-bit Windows binaries (called `glfw-3.3.bin.WIN64.zip` as of
-this writing).
-
-Use 7-Zip to extract the contents of the glfw ZIP file into a directory called
-`glfw`.
-
-Navigate to [http://glew.sourceforge.net/](http://glew.sourceforge.net/) and
-download the "Binaries: Windows 32-bit and 64-bit" ZIP file (called
-`glew-2.1.0-win32.zip` as of this writing).
-
-Use 7-Zip to extract the contents of the glew ZIP file into a directory called
-`glew` (make sure that the contents are at the top level of `glew`, you want
-`glew\bin`, not `glew\glew-2.1.0\bin`).
-
-Navigate to
-[https://github.com/lz4/lz4/releases](https://github.com/lz4/lz4/releases) and
-download the latest version of LZ4 for "win64" (called `lz4_win64_v1_9_2.zip`
-as of this writing).
-
-Use 7-Zip to extract the contents of the LZ4 ZIP file into a directory called
-`lz4`.
-
-Navigate to
-[https://www.boost.org/users/download/](https://www.boost.org/users/download/)
-and download the latest version of Boost for Windows (called `boost_1_71_0.7z`
-as of this writing).
-
-Use 7-Zip to extract the contents of the Boost 7z file into a directory called
-`boost`.
+git clone https://github.com/lz4/lz4.git lz4_src
+cd lz4_src\build\cmake
+md build
+cd build
+cmake -G "Visual Studio 16 2019" -A x64 -T "LLVM_v142" -D CMAKE_C_COMPILER="C:/Program Files/LLVM/bin/clang.exe" ..
+cmake --build . -- /v:d /property:Configuration=Debug /property:Platform=x64
+cd ..\..\..\..
+md lz4\dll lz4\example lz4\include lz4\static
+move lz4_src\NEWS lz4
+move lz4_src\README.md lz4
+move lz4_src\build\cmake\build\Debug\lz4.exe lz4
+move lz4_src\build\cmake\build\Debug\lz4.dll lz4\dll
+move lz4_src\lib\dll\example\*.* lz4\example
+move lz4_src\lib\xxhash.c lz4\example
+move lz4_src\lib\xxhash.h lz4\example
+move lz4_src\lib\lz4.h lz4\include
+move lz4_src\lib\lz4frame.h lz4\include
+move lz4_src\lib\lz4hc.h lz4\include
+move lz4_src\build\cmake\build\Debug\lz4.exp lz4\static
+move lz4_src\build\cmake\build\Debug\lz4.lib lz4\static
+move lz4_src\build\cmake\build\Debug\lz4.pdb lz4\static
+rmdir /Q /S lz4_src
+```
 
 Notice here that we assume the installation directory of LLVM is the default
 one. If you don't use the default installation directory, you will have to
 tweak `CMakeLists.txt` yourself:
 
 ```bat
-$ SET CC="C:\Program Files\LLVM\bin\clang.exe"
-$ SET CXX="C:\Program Files\LLVM\bin\clang++.exe"
+SET CC="C:\Program Files\LLVM\bin\clang.exe"
+SET CXX="C:\Program Files\LLVM\bin\clang++.exe"
 
-$ cd MortalClient
-$ md build
-$ cd build
+cd MortalClient
+md build
+cd build
 ```
 
 Use the following two commands if `CMAKE_BUILD_TYPE` is to be `Debug` (you may
@@ -375,8 +414,9 @@ wish to add an additional `/mN` flag, with `N` being the number of CPU cores
 you wish to utilize for compilation):
 
 ```bat
-$ cmake -G "Visual Studio 15 2017 Win64" -T "LLVM-vs2017" -D CMAKE_C_COMPILER="C:/Program Files/LLVM/bin/clang.exe" -D CMAKE_CXX_COMPILER="C:/Program Files/LLVM/bin/clang++.exe" -D CMAKE_BUILD_TYPE=Debug ..
-$ cmake --build . -- /v:d /property:Configuration=Debug /property:Platform=x64
+del * /S /Q > nul
+cmake -G "Visual Studio 16 2019" -A x64 -T "LLVM_v142" -D CMAKE_C_COMPILER="C:/Program Files/LLVM/bin/clang.exe" -D CMAKE_CXX_COMPILER="C:/Program Files/LLVM/bin/clang++.exe" -D CMAKE_BUILD_TYPE=Debug ..
+cmake --build . -- /v:d /property:Configuration=Debug /property:Platform=x64 > ..\..\out.txt
 ```
 
 `CMAKE_BUILD_TYPE` here may also be `Release`, `RelWithDebInfo`, or
