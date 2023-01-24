@@ -345,9 +345,10 @@ del boost*.zip
 move boost* boost
 ```
 
-There are two dependencies we need to build them ourselves. `freetype` and `lz4`. The reason is showing below.
-`freetype`: No `.pdb` file in official release.
-`lz4`: Official release is builded by `MinGW` and it's not compatilbe to `MSVC`.
+There are two dependencies we need to build them ourselves, `freetype` and `lz4`.  
+`freetype`: No `.pdb` file in official release.  
+`lz4`: Official release is builded by `MinGW` and it's not compatilbe to `MSVC`.  
+Make a `.bat` file instead of run the commands directly in cmd so that it will not stop after `cmake` command.
 ```
 curl -LJO https://nchc.dl.sourceforge.net/project/freetype/freetype2/2.12.1/ft2121.zip
 7z x ft2121.zip
@@ -357,19 +358,20 @@ cd freetype_src
 cmake -B build -D BUILD_SHARED_LIBS=true -D CMAKE_BUILD_TYPE=Debug
 cmake --build build
 cd ..
-md freetype\demos\win64 freetype\include "freetype\release dll\win64" "freetype\release static\vs2015-2022\win64"
+md freetype\demos\win64 "freetype\release dll\win64" "freetype\release static\vs2015-2022\win64"
 move freetype_src\ChangeLog freetype\ChangeLog.txt
 move freetype_src\docs\FTL.TXT freetype
 move freetype_src\docs\GPLv2.TXT freetype
 move freetype_src\LICENSE.TXT freetype
 move freetype_src\README freetype\README.md
-move freetype_src\include "freetype\include"
-copy freetype_src\build\Debug\freetyped.dll "freetype\demos\win64"
-move freetype_src\build\Debug\freetyped.dll "freetype\release dll\win64"
-copy freetype_src\build\Debug\freetyped.lib "freetype\release dll\win64"
-move freetype_src\build\Debug\freetyped.exp "freetype\release static\vs2015-2022\win64"
-move freetype_src\build\Debug\freetyped.lib "freetype\release static\vs2015-2022\win64"
-move freetype_src\build\Debug\freetyped.pdb "freetype\release static\vs2015-2022\win64"
+move freetype_src\include freetype
+rename freetype_src\build\Debug\freetyped.* freetype.*
+copy freetype_src\build\Debug\freetype.dll freetype\demos\win64
+move freetype_src\build\Debug\freetype.dll "freetype\release dll\win64"
+copy freetype_src\build\Debug\freetype.lib "freetype\release dll\win64"
+move freetype_src\build\Debug\freetype.exp "freetype\release static\vs2015-2022\win64"
+move freetype_src\build\Debug\freetype.lib "freetype\release static\vs2015-2022\win64"
+move freetype_src\build\Debug\freetype.pdb "freetype\release static\vs2015-2022\win64"
 rmdir /Q /S freetype_src
 
 git clone https://github.com/lz4/lz4.git lz4_src
@@ -411,12 +413,13 @@ cd build
 
 Use the following two commands if `CMAKE_BUILD_TYPE` is to be `Debug` (you may
 wish to add an additional `/mN` flag, with `N` being the number of CPU cores
-you wish to utilize for compilation):
+you wish to utilize for compilation)  
+Since you may need to build many times for debug purpose, I add a command at first to delete all the files generated in previous build:
 
 ```bat
 del * /S /Q > nul
 cmake -G "Visual Studio 16 2019" -A x64 -T "LLVM_v142" -D CMAKE_C_COMPILER="C:/Program Files/LLVM/bin/clang.exe" -D CMAKE_CXX_COMPILER="C:/Program Files/LLVM/bin/clang++.exe" -D CMAKE_BUILD_TYPE=Debug ..
-cmake --build . -- /v:d /property:Configuration=Debug /property:Platform=x64 > ..\..\out.txt
+cmake --build . -- /m:8 /v:d /property:Configuration=Debug /property:Platform=x64 > ..\..\out.txt
 ```
 
 `CMAKE_BUILD_TYPE` here may also be `Release`, `RelWithDebInfo`, or
