@@ -417,7 +417,7 @@ Since you may need to build many times for debug purpose, I add a command at fir
 ```bat
 del * /S /Q > nul
 cmake -G "Visual Studio 16 2019" -A x64 -T "LLVM_v142" -D CMAKE_C_COMPILER="C:/Program Files/LLVM/bin/clang.exe" -D CMAKE_CXX_COMPILER="C:/Program Files/LLVM/bin/clang++.exe" -D CMAKE_BUILD_TYPE=Debug ..
-cmake --build . -- /v:d /property:Configuration=Debug /property:Platform=x64 > ..\..\out.txt
+cmake --build . -- /m:8 /v:d /property:Configuration=Debug /property:Platform=x64 > ..\..\out.txt
 ```
 
 `CMAKE_BUILD_TYPE` here may also be `Release`, `RelWithDebInfo`, or
