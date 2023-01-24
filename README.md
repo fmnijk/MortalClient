@@ -345,8 +345,8 @@ del boost*.zip
 move boost* boost
 ```
 
-There are two dependencies we need to build them ourselves. `freetype` and `lz4`. The reason is showing below.
-`freetype`: No `.pdb` file in official release.
+There are two dependencies we need to build them ourselves. `freetype` and `lz4`. The reason is showing below.  
+`freetype`: No `.pdb` file in official release.  
 `lz4`: Official release is builded by `MinGW` and it's not compatilbe to `MSVC`.
 ```
 curl -LJO https://nchc.dl.sourceforge.net/project/freetype/freetype2/2.12.1/ft2121.zip
