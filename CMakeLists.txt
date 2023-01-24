@@ -210,7 +210,7 @@ add_executable(JourneyClient ${SOURCE_FILES})
 # Ignore conflict libraries
 if(WIN32)
     set_target_properties(JourneyClient PROPERTIES
-        LINK_FLAGS "/SUBSYSTEM:CONSOLE /NODEFAULTLIB:libcmt.lib /NODEFAULTLIB:msvcrt.lib"
+        LINK_FLAGS "/SUBSYSTEM:CONSOLE /ENTRY:wmainCRTStartup /NODEFAULTLIB:libcmt.lib /NODEFAULTLIB:msvcrt.lib"
     )
 endif()
 
