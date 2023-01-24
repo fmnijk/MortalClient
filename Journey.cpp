@@ -157,11 +157,6 @@ void start()
 
 // Entry point have four:
 // main wmain WinMain wWinMain
-// To use specific one:
-// /ENTRY:mainCRTStartup
-// /ENTRY:wmainCRTStartup
-// /ENTRY:WinMainCRTStartup
-// /ENTRY:wWinMainCRTStartup
 // NOT WIN32
 int main()
 {
