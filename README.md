@@ -365,13 +365,12 @@ move freetype_src\docs\GPLv2.TXT freetype
 move freetype_src\LICENSE.TXT freetype
 move freetype_src\README freetype\README.md
 move freetype_src\include freetype
-rename freetype_src\build\Debug\freetyped.* freetype.*
-copy freetype_src\build\Debug\freetype.dll freetype\demos\win64
-move freetype_src\build\Debug\freetype.dll "freetype\release dll\win64"
-copy freetype_src\build\Debug\freetype.lib "freetype\release dll\win64"
-move freetype_src\build\Debug\freetype.exp "freetype\release static\vs2015-2022\win64"
-move freetype_src\build\Debug\freetype.lib "freetype\release static\vs2015-2022\win64"
-move freetype_src\build\Debug\freetype.pdb "freetype\release static\vs2015-2022\win64"
+copy freetype_src\build\Debug\freetyped.dll freetype\demos\win64
+move freetype_src\build\Debug\freetyped.dll "freetype\release dll\win64"
+copy freetype_src\build\Debug\freetyped.lib "freetype\release dll\win64"
+move freetype_src\build\Debug\freetyped.exp "freetype\release static\vs2015-2022\win64"
+move freetype_src\build\Debug\freetyped.lib "freetype\release static\vs2015-2022\win64"
+move freetype_src\build\Debug\freetyped.pdb "freetype\release static\vs2015-2022\win64"
 rmdir /Q /S freetype_src
 
 git clone https://github.com/lz4/lz4.git lz4_src
